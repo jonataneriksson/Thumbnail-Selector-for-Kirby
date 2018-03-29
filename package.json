@@ -1,0 +1,8 @@
+{
+  "name": "thumbnailselector",
+  "description": "Kirby CMS Media Slides Field.",
+  "author": "Jonatan Eriksson <jonatan.eriksson@gmail.com>",
+  "version" : "0.0.1",
+  "license": "MIT",
+  "type": "kirby-field"
+}

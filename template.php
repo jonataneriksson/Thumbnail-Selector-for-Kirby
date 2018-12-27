@@ -1,19 +1,28 @@
 <input class="[ js-selector-storage ]" type="hidden" name="<?= $field->name() ?>" id="<?= $field->name() ?>" value="<?= implode(',', $field->value()) ?>" />
 
-<?php if ($field->files()->count() > 0): ?>
+
+<?php
+
+
+?>
+
+<?php if ($field->files()->count() > 0):  ?>
     <div class="input input-with-items">
 
         <?php foreach ($field->files() as $file): ?>
 
             <?php
+
               $fileobject = array(
+                'type' => (string)$file->type(),
                 'filename' => (string)$file->filename(),
-                'ratio' => (string)$file->ratio(),
-                'orientation' => (string)$file->orientation(),
-                'h350' => (string)$file->thumb(['height' => 350])->url(),
-                'h700' => (string)$file->thumb(['height' => 700])->url(),
-                'h1000' => (string)$file->thumb(['height' => 1000])->url(),
-                'h1500' => (string)$file->thumb(['height' => 1500])->url());
+                'video' => (string)str_replace(site()->url(), '', $file->thumb(['original' => true, 'silent' => 'true'])->url()),
+                'ratio' => (string)$file->thumb(['height' => 480, 'still' => true])->ratio(),
+                'orientation' => (string)$file->thumb(['height' =>480, 'still' => true])->orientation()
+              );
+
+              $fileobject = array_merge($fileobject, $field->getthumbnails($file, ['clip' => true, 'still' => true, 'silent' => 'true']));
+
               $data = (string)(json_encode($fileobject, JSON_HEX_APOS));
               $cleandata = str_replace('"','\'', $data);
              ?>

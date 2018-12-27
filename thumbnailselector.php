@@ -405,6 +405,27 @@ class ThumbnailSelectorField extends BaseField
     }
 
     /**
+     * getthumbnails
+     *
+     *
+     *
+     *
+     *
+     */
+     public function getthumbnails($file, $options = []) {
+      $thumbnails = [];
+      $heights = c::get('thumbs.heights');
+      foreach($heights as $height):
+        $id = 'h' . $height;
+        $options['height'] = $height;
+        $thumbnails[$id] = (string)str_replace(site()->url(), '', $file->thumb($options)->url());
+      endforeach;
+      return $thumbnails;
+    }
+
+
+
+    /**
      * Check if a file is present in the current value.
      *
      * @since 1.0.0
